@@ -65,3 +65,30 @@ class DoublyLinkedListNode:
         self.length -= 1
         return tmp
 
+    def print_dll(self):
+        tmp = self.head 
+        for _ in range(self.length):
+            print(tmp.value)
+            tmp = tmp.next 
+
+    def get(self, index):
+        if index > self.length or index < 0:
+            return None 
+
+        tmp = self.head
+        if index < (self.length / 2):
+            for _ in range(index):
+                tmp = tmp.next
+        else:
+            tmp = self.tail
+            for _ in range(self.length - 1, index, -1):
+                tmp = tmp.prev
+        return tmp 
+
+    def set(self, index, value):
+        node = self.get(index)
+        if node:
+            node.value = value
+            return True
+        return False
+
