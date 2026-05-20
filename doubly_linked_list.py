@@ -72,7 +72,7 @@ class DoublyLinkedListNode:
             tmp = tmp.next 
 
     def get(self, index):
-        if index > self.length or index < 0:
+        if index >= self.length or index < 0:
             return None 
 
         tmp = self.head
@@ -92,3 +92,39 @@ class DoublyLinkedListNode:
             return True
         return False
 
+    def insert(self, index, value):
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+
+        prev = self.get(index - 1)
+        after = prev.next 
+        new_node = Node(value)
+
+        new_node.prev = prev
+        new_node.next = next 
+        prev.next = new_node
+        after.prev = new_node
+        self.length += 1
+        return True
+
+    def remove(self, index):
+        if index >= self.length or index < 0:
+            return 0
+        if index == 0:
+            return self.pop_first()
+        if index == (self.length - 1):
+            return self.pop()
+
+        tmp = self.get(index)
+
+        tmp.next.prev = tmp.prev
+        tmp.prev.next = tmp.next
+        tmp.next = None
+        tmp.prev = None
+
+        self.length -= 1
+        return True
